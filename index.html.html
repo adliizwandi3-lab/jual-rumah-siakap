@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jual Bawah Market Value - Teres Taman Siakap</title>
+    <style>
+        /* --- GAYA ASAS --- */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            color: #333; 
+            line-height: 1.6; 
+            
+            /* SAYA GUNA LINK INTERNET UNTUK BACKGROUND KAYU */
+            background-image: url('https://images.unsplash.com/photo-1589985902888-8cd4e2920217?q=80&w=1920&auto=format&fit=crop'); 
+            
+            background-attachment: fixed; /* Gambar kekal statik */
+            background-size: cover;       
+            background-position: center;
+        }
+        
+        /* HEADER */
+        header { 
+            background-color: rgba(0, 51, 102, 0.95); 
+            color: white; 
+            padding: 20px 15px; 
+            text-align: center; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        header h3 {
+            font-size: 2.5em; font-weight: 900; margin: 0; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;
+        }
+
+        /* HERO IMAGE (Gambar Utama) */
+        .hero { 
+            background-color: #555; 
+            /* SAYA GUNA LINK INTERNET UNTUK RUMAH DEPAN */
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1000&auto=format&fit=crop'); 
+            height: 450px; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+            background-size: cover; background-position: center; color: white; padding: 20px;
+            border-bottom: 5px solid #e74c3c;
+        }
+        .hero h1 { font-size: 3.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px #000; }
+        .tagline { font-size: 1.5em; background-color: #e74c3c; padding: 5px 15px; border-radius: 5px; display: inline-block; }
+
+        /* CONTAINER (KERTAS PUTIH) */
+        .container { 
+            max-width: 900px; 
+            margin: -50px auto 40px; 
+            padding: 40px; 
+            background: #ffffff; 
+            border-radius: 5px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
+            position: relative; 
+        }
+
+        /* INFO HARGA */
+        .price-section { text-align: center; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
+        .market-value { text-decoration: line-through; color: #777; font-size: 1.1em; }
+        .selling-price { color: #e74c3c; font-size: 2.5em; font-weight: bold; margin: 5px 0; }
+        .save-value { color: #27ae60; font-weight: bold; background: #e8f8f5; padding: 5px 10px; border-radius: 20px; display: inline-block;}
+
+        /* DETAIL GRID */
+        .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .detail-box { background: #f4f6f8; padding: 15px; text-align: center; border-radius: 8px; border: 1px solid #ddd; }
+        .detail-box strong { display: block; font-size: 1.2em; color: #003366; }
+
+        /* LIST */
+        .amenities { margin: 30px 0; }
+        .amenities ul { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .amenities li { list-style: none; padding-left: 25px; position: relative; }
+        .amenities li::before { content: "✅"; position: absolute; left: 0; }
+
+        /* GALERI */
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 20px; }
+        .gallery img { 
+            width: 100%; height: 150px; object-fit: cover; border-radius: 5px; 
+            cursor: zoom-in; 
+            transition: transform 0.3s; 
+            border: 2px solid #ddd; 
+        }
+        .gallery img:hover { transform: scale(1.05); border-color: #003366; }
+
+        /* OVERLAY (POP-UP) */
+        #imageOverlay {
+            display: none; position: fixed; z-index: 10000; padding-top: 50px; 
+            left: 0; top: 0; width: 100%; height: 100%; 
+            background-color: rgba(0,0,0,0.9); 
+            justify-content: center; align-items: center; flex-direction: column;
+        }
+        #fullImage {
+            margin: auto; display: block; max-width: 90%; max-height: 80vh;
+            border: 5px solid white; box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            animation: zoomEffect 0.4s;
+        }
+        @keyframes zoomEffect { from {transform:scale(0.5); opacity: 0;} to {transform:scale(1); opacity: 1;} }
+        .close-btn { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }
+        .hint-text { color: #ccc; margin-top: 10px; }
+
+        /* WHATSAPP BUTTON */
+        .cta-section { text-align: center; margin-top: 40px; padding: 20px; background: #ebf5fb; border-radius: 10px; border: 1px dashed #003366; }
+        .btn-whatsapp {
+            display: inline-block; background-color: #25D366; color: white; padding: 15px 30px; font-size: 1.2em; font-weight: bold; text-decoration: none; border-radius: 50px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: background 0.3s; margin-top: 10px;
+        }
+        .btn-whatsapp:hover { background-color: #128C7E; transform: translateY(-2px); }
+
+        /* FOOTER */
+        footer { 
+            text-align: center; padding: 20px; color: white; font-size: 0.9em; 
+            text-shadow: 1px 1px 2px black; 
+        }
+
+        @media (max-width: 600px) {
+            header h3 { font-size: 1.8em; } 
+            .hero h1 { font-size: 2.5em; }
+            .amenities ul { grid-template-columns: 1fr; }
+            .container { margin-top: 0; border-radius: 0; width: 100%; box-sizing: border-box; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h3>HARTANAH PANAS SEBERANG JAYA, PULAU PINANG</h3>
+    </header>
+
+    <div class="hero">
+        <h1>Teres Setingkat Taman Siakap</h1>
+        <div class="tagline">JIMAT RM25,000 DARI MARKET VALUE!</div>
+    </div>
+
+    <div class="container">
+     
+        <div class="price-section">
+            <div class="market-value">Nilai Pasaran: RM 380,000</div>
+            <div class="selling-price">RM 355,000</div>
+            <div class="save-value">Penjimatan Segera RM 25,000 💰</div>
+        </div>
+
+        <div class="details-grid">
+            <div class="detail-box"><strong>Ciri-ciri</strong>Teres Setingkat, 3 bilik tidur , 2 bilik Air</div>
+            <div class="detail-box"><strong>Pegangan</strong>Leasehold (Baki 50 Thn)</div>
+            <div class="detail-box"><strong>Lokasi</strong>Taman Siakap, Seberang Jaya</div>
+            <div class="detail-box"><strong>Status</strong>Non-Bumi Lot</div>
+            <div class="detail-box"><strong>Saiz</strong>1530 kps </div>
+            <div class="detail-box"><strong>Lot</strong>Tengah </div>
+        </div>
+
+        <h2>Kenapa Rumah Ini Berbaloi?</h2>
+        <p>Peluang jarang jumpa untuk memiliki rumah landed di kawasan "matang" Seberang Jaya dengan harga di bawah nilai pasaran.</p>
+
+        <div class="amenities">
+            <h3>📍 Kemudahan & Lokasi Strategik (Hotspot):</h3>
+            <ul>
+                <li><strong>Highway PLUS:</strong> Akses mudah untuk ke Utara/Selatan.</li>
+                <li><strong>Shopping Mall:</strong> Berdekatan Sunway Carnival Mall.</li>
+                <li><strong>Kesihatan:</strong> Sangat dekat dengan Hospital Seberang Jaya.</li>
+                <li><strong>Pendidikan:</strong> Berhampiran UiTM & Politeknik.</li>
+                <li><strong>Pusat Ibadat:</strong> Berhampiran Masjid Seberang Jaya.</li>
+                <li><strong>Kemudahan sekeliling:</strong> Pelbagai kedai makanan dan minuman.</li>
+            </ul>
+        </div>
+
+        <h3>Galeri Foto</h3>
+        <p style="font-size:0.9em; color:#666;">*Klik gambar untuk paparan penuh </p>
+        
+        <div class="gallery">
+            <img src="images/tamu.jpg" alt="Ruang Tamu" onclick="openOverlay(this)">
+            <img src="images/dapur.jpg" alt="Dapur" onclick="openOverlay(this)">
+            <img src="images/parking.jpg" alt="Parking" onclick="openOverlay(this)">
+            <img src="images/depan.jpg" alt="Depan Rumah" onclick="openOverlay(this)">
+            <img src="images/dapur2.jpg" alt="Ruang Makan" onclick="openOverlay(this)">
+            <img src="images/toilet.jpg" alt="Bilik Air" onclick="openOverlay(this)">
+            <img src="images/ventilation.jpg" alt="Ruang Udara" onclick="openOverlay(this)">
+            <img src="images/master-bedroom.jpg" alt="Bilik Tidur Utama" onclick="openOverlay(this)">
+            <img src="images/pintu.jpg" alt="Pintu Masuk" onclick="openOverlay(this)">
+            <img src="images/bilik-tidur.jpg" alt="Bilik Tidur" onclick="openOverlay(this)">
+
+
+        </div>
+
+        <div style="margin-top: 30px;">
+            <h3>Lokasi Tepat</h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.169727976694!2d100.395!3d5.394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x304ac5d8b8b8b8b9%3A0x0!2sTaman+Siakap!5e0!3m2!1sen!2smy!4v1600000000000" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+
+        <div class="cta-section">
+            <h3>Berminat? Jangan Tunggu Lama.</h3>
+            <a href="https://wa.me/60174440375?text=Salam,%20saya%20berminat%20dengan%20Rumah%20Taman%20Siakap%20RM355k" class="btn-whatsapp">
+                👉 KLIK SINI UNTUK WHATSAPP
+            </a>
+            <p style="margin-top:10px; font-size:0.9em;">Atau hubungi: <strong>017 - 444 0375</strong> (AZIZON)</p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Jualan Rumah Taman Siakap
+    </footer>
+
+    <!-- OVERLAY LOGIC -->
+    <div id="imageOverlay" onclick="closeOverlay()">
+        <span class="close-btn">&times;</span>
+        <img id="fullImage" src="">
+        <div class="hint-text">Klik di mana sahaja untuk tutup</div>
+    </div>
+
+    <script>
+        function openOverlay(element) {
+            var overlay = document.getElementById("imageOverlay");
+            var fullImg = document.getElementById("fullImage");
+            overlay.style.display = "flex";
+            fullImg.src = element.src;
+        }
+        function closeOverlay() {
+            document.getElementById("imageOverlay").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
